@@ -109,3 +109,35 @@ You will instantly have a production dashboard monitoring live token consumption
 This product operates under an Open-Core model. Basic proxy routing and request logging features are available for open evaluation. High-performance streaming PII scrubbing, dynamic regex evaluation clusters, token-bucket allocation controls, and multi-tenant admin policies require an active production enterprise license key.
 
 To obtain your enterprise validation license key instantly via automated delivery channels, visit our Self-Serve Commercial Gateway Checkout Portal to activate your account.
+
+---
+
+## ⚙️ How It Works (Under the Hood)
+
+The Secure AI Edge Gateway acts as a high-performance Layer-7 inline firewall sitting directly between your client applications and your open-source inference servers (`vLLM`, `llama.cpp`).
+
+1. **Connection Intake & Scaling:** When a client sends a request, the gateway multiplexes the connection using lightweight Go Goroutines, consuming just ~2KB of RAM per session.
+2. **Inbound Token-Bucket Check:** The gateway intercepts the packet at the TCP socket layer and cross-references the Client IP with a thread-safe memory manager (`sync.RWMutex`). It calculates real-time token balances using a microsecond time-delta math formula. If the user's Token-Bucket budget is empty, the connection is instantly rejected with an `HTTP 429 Too Many Requests` error.
+3. **Inbound Threat Analysis:** Valid connections pass through a pre-compiled multi-pattern regex heuristics matrix to detect and drop natural language jailbreaks or prompt injections in microseconds.
+4. **Zero-Copy Stream Interception:** As the backend AI answers via Server-Sent Events (SSE), the gateway utilizes an in-memory `io.Pipe()` conduit and a `bufio.Scanner` line tracker. It evaluates chunks of incoming text line-by-line. If a sensitive pattern matches an admin-defined rule (e.g., an SSN or corporate API key), it modifies the packet data *in RAM* on the fly, replacing the leak with a `[REDACTED]` stamp before it reaches the wire transmission card.
+
+---
+
+## 💳 Licensing & Cost Structure
+
+This product operates under an **Open-Core** licensing model. The basic reverse-proxy and request logging framework are available for free under the permissive MIT License. Enterprise-grade security policies, data masking filters, and usage trackers require a commercial license key.
+
+### 📊 Tiered Pricing Model
+
+| Feature Matrix | 🍃 Open-Source Core (Free) | 🏢 Enterprise Tier ($250/mo) |
+| :--- | :--- | :--- |
+| **Max Capacity** | Up to 1,000 requests/day | Unlimited Concurrent Streams |
+| **L7 Reverse Proxy** | ✅ Included | ✅ Included |
+| **Prometheus Telemetry** | ✅ Included | ✅ Included |
+| **Inbound Jailbreak Guard** | ❌ None (Open Pass) | ✅ Pre-Compiled Regex Heuristics |
+| **Outbound PII Filter** | ❌ None (Unmasked) | ✅ Real-Time Regex Data Redaction |
+| **Token-Bucket Rate Limiter**| ❌ None (No TPM Track) | ✅ Per-Group Token Balances (TPM) |
+| **Role-Based Policies** | ❌ Single Global Policy | ✅ Multi-Tenant Group Routing |
+| **Technical Support** | GitHub Issues Community | 24/7 SLA Priority Developer Support |
+
+*To activate your production instances instantly via automated checkout delivery, visit our [Self-Serve Commercial Gateway Checkout Portal](#) to generate your cryptographically signed activation license key.*
