@@ -140,4 +140,4 @@ This product operates under an **Open-Core** licensing model. The basic reverse-
 | **Role-Based Policies** | ❌ Single Global Policy | ✅ Multi-Tenant Group Routing |
 | **Technical Support** | GitHub Issues Community | 24/7 SLA Priority Developer Support |
 
-*To activate your production instances instantly via automated checkout delivery, visit our [https://buy.polar.sh/polar_cl_fp7n03guxR834X60OpVcwUfQKR9HD66K8HqD72ogqCp](#) to generate your cryptographically signed activation license key.*
+*To activate your production instances instantly via automated checkout delivery, visit our [![Buy Access via Polar](https://polar.sh)](https://buy.polar.sh/polar_cl_fp7n03guxR834X60OpVcwUfQKR9HD66K8HqD72ogqCp) to generate your cryptographically signed activation license key.*
