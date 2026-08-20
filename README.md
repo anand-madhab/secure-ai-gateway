@@ -24,7 +24,7 @@ Built in pure Go with zero external dependencies, this gateway acts as a central
               │
               ▼ (HTTPS / OpenAI API Schema)
 ┌────────────────────────────────────────────────────────┐
-│             SECURE AI EDGE GATEWAY (Port 8080)          │
+│             SECURE AI EDGE GATEWAY (Port 8080)         │
 │                                                        │
 │  1. Inbound Guard (Jailbreak / Threat Matrix Scan)     │
 │  2. Token Rate Limiter (Token-Bucket allocation check) │
@@ -140,4 +140,4 @@ This product operates under an **Open-Core** licensing model. The basic reverse-
 | **Role-Based Policies** | ❌ Single Global Policy | ✅ Multi-Tenant Group Routing |
 | **Technical Support** | GitHub Issues Community | 24/7 SLA Priority Developer Support |
 
-*To activate your production instances instantly via automated checkout delivery, visit our [![Buy Access via Polar](https://polar.sh)](https://buy.polar.sh/polar_cl_fp7n03guxR834X60OpVcwUfQKR9HD66K8HqD72ogqCp) to generate your cryptographically signed activation license key.*
+*To activate your production instances instantly via automated checkout delivery, visit our [![Buy Secure AI Gateway via Polar]](https://buy.polar.sh/polar_cl_fp7n03guxR834X60OpVcwUfQKR9HD66K8HqD72ogqCp) to generate your cryptographically signed activation license key.*
