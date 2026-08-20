@@ -1,0 +1,38 @@
+# =====================================================================
+# STAGE 1: High-Performance Compilation
+# =====================================================================
+FROM golang:1.22-alpine AS builder
+
+# Set runtime container compilation flags
+ENV GO111MODULE=auto \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64
+
+WORKDIR /build
+
+# Copy your core source engine file into the compiler context
+COPY main5.go .
+
+# Compile a compressed, production-optimized binary architecture
+# -ldflags="-s -w" strips debug tables and symbols to reduce file size
+RUN go build -ldflags="-s -w" -o ai-gateway main5.go
+
+# =====================================================================
+# STAGE 2: Secure Scratch Container Deployment 
+# =====================================================================
+FROM alpine:3.19 AS production
+
+# Add security certificates so your license engine can hit Keygen via HTTPS safely
+RUN apk --no-cache add ca-certificates tzdata
+
+WORKDIR /app
+
+# Pull only the compiled artifact from Stage 1 (Source code stays behind)
+COPY --from=builder /build/ai-gateway .
+
+# Expose proxy routing (8080) and Prometheus scraping logs (9090)
+EXPOSE 8080 9090
+
+# Standard execution point instruction
+ENTRYPOINT ["./ai-gateway"]
